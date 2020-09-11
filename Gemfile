@@ -1,15 +1,15 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-ruby '2.6.5'
+ruby "2.6.5"
 
-gem 'rails'
-gem 'pg'
-gem 'puma'
-gem 'sass-rails'
-gem 'webpacker'
-gem 'turbolinks'
-gem 'jbuilder'
-gem 'bootsnap', require: false
+gem "bootsnap", require: false
+gem "jbuilder"
+gem "pg"
+gem "puma"
+gem "rails"
+gem "sass-rails"
+gem "turbolinks"
+gem "webpacker"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -19,15 +19,15 @@ gem 'bootsnap', require: false
 # gem 'image_processing', '~> 1.2'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
-  gem 'web-console'
-  gem 'listen'
-  gem 'spring'
-  gem 'spring-watcher-listen'
+  gem "listen"
+  gem "spring"
+  gem "spring-watcher-listen"
+  gem "web-console"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
