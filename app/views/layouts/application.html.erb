@@ -2,21 +2,28 @@
 <html>
   <head>
     <title>Vimana</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if user_signed_in? %>
-      <p>
-        Signed in as <%= current_user.email %> |
-        <%= link_to "Sign out", session_path, method: :delete %>
-      </p>
-    <% end %>
-    <%= yield %>
+    <div class="container">
+      <%= render AlertComponent.new(type: "success", content: notice) if notice %>
+      <%= render AlertComponent.new(type: "danger", content: alert) if alert %>
+      <% if user_signed_in? %>
+        <p>
+          Signed in as <%= current_user.email %> |
+          <%= link_to "Sign out", session_path, method: :delete %>
+        </p>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

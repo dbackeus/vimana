@@ -15,6 +15,9 @@ require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
+# GitHub ViewComponent (https://github.com/github/view_component#installation)
+require "view_component/engine"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

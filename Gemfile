@@ -11,6 +11,7 @@ gem "puma"
 gem "rails"
 gem "sass-rails"
 gem "turbolinks"
+gem "view_component"
 gem "webpacker"
 
 # Use Redis adapter to run Action Cable in production
