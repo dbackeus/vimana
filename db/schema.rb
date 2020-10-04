@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_12_150610) do
+ActiveRecord::Schema.define(version: 2020_09_26_190919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
+
+  create_table "airports", force: :cascade do |t|
+    t.string "ident", limit: 4, null: false
+    t.string "name", null: false
+    t.integer "size", limit: 2, null: false
+    t.integer "altitude", null: false
+    t.string "city"
+    t.geometry "area", limit: {:srid=>0, :type=>"st_polygon"}, null: false
+    t.geography "position", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ident"], name: "index_airports_on_ident", unique: true
+  end
 
   create_table "games", force: :cascade do |t|
     t.string "name", null: false
