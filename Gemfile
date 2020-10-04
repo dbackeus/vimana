@@ -10,13 +10,12 @@ gem "omniauth-google-oauth2"
 gem "pg"
 gem "puma"
 gem "rails"
+gem "redis" # for actioncable
 gem "sass-rails"
 gem "turbolinks"
 gem "view_component"
 gem "webpacker"
 
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
