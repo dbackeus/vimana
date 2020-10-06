@@ -63,7 +63,7 @@
           playerMarker.update = function({ lat, lng, heading }) {
             this.setIcon({
               ...icon,
-              url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(planeSVG.replace("{{ rotation }}", heading)),
+              url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(planeSVG.replace("{{ rotation }}", heading - 45)),
             })
             this.setPosition({ lat, lng })
           }
