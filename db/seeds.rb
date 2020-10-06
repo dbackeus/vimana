@@ -2,8 +2,21 @@ require "csv"
 
 Airport.delete_all
 
+large = File.open("db/airports-large.csv").each.map(&:chomp)
+medium_including_large = File.open("db/airports-medium.csv").each.map(&:chomp)
+medium = medium_including_large - large
+
 CSV.foreach(File.open("db/airports.csv")) do |row|
-  ident, name, city, size, left, top, right, bottom, altitude, longitude, latitude = row
+  ident, name, city, _rating, left, top, right, bottom, altitude, longitude, latitude = row
+
+  size =
+    if large.include?(ident)
+      3
+    elsif medium.include?(ident)
+      2
+    else
+      1
+    end
 
   Airport.create!(
     ident: ident,
