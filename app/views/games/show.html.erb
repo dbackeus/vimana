@@ -9,74 +9,28 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script type="importmap">
+      {
+        "imports": {
+          "preact": "https://cdn.skypack.dev/preact",
+          "htm": "https://cdn.skypack.dev/htm"
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV.fetch("GOOGLE_MAPS_API_KEY") %>&libraries=&v=weekly"></script>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <script>
-      window.airportsLoaded = false
-      window.googleMapsLoaded = false
-
-      if(airportsJSON = localStorage.getItem("airports")) {
-        window.airports = JSON.parse(airportsJSON).entries
-        window.airportsLoaded = true
-      }
-      else {
-        window.airports = fetch("/airports")
-          .then(response => response.json())
-          .then((airports) => {
-            localStorage.setItem("airports", JSON.stringify({ updatedAt: new Date(), entries: airports }))
-            window.airports = airports
-            window.airportsLoaded = true
-            maybeInitMap()
-          })
-      }
-
-      function onGoogleMaps() {
-        window.googleMapsLoaded = true
-        maybeInitMap()
-      }
-
-      function maybeInitMap() {
-        if(window.googleMapsLoaded && window.airportsLoaded) {
-          document.getElementById("map").setAttribute("data-controller", "map")
-        }
-      }
+      currentAirport = <%=raw @game.current_airport.as_js_object.to_json %>
     </script>
   </head>
   <body style="height: 100vh; width: 100vw;">
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV.fetch("GOOGLE_MAPS_API_KEY") %>&callback=onGoogleMaps&libraries=&v=weekly"></script>
     <div class="game" style="display: flex; height: 100%; width: 100vw;">
-      <div class="info" style="width: 50%;">
-        <div class="container-fluid">
-          <h2><%= @game.current_airport.ident %> - <%= @game.current_airport.name %></h2>
-          <h3>Missions</h3>
-          <table class="table">
-            <thead>
-              <th>Description</th>
-              <th>Distance</th>
-              <th>Destination</th>
-            </thead>
-            <tbody>
-              <% @nearby_airports.each do |airport| %>
-                <tr class="mission" onclick="selectMission(this)">
-                  <td>Passenger</td>
-                  <td><%= nm airport.distance %></td>
-                  <td><%= airport.name %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+      <div class="info" id="game-info" style="width: 50%;">
       </div>
-      <div
-        <%# data-controller set via google maps callback %>
-        data-map-current-lat="<%= @game.current_airport.position.latitude %>"
-        data-map-current-lng="<%= @game.current_airport.position.longitude %>"
-        data-map-airport-icon="<%= asset_path("airport.svg") %>"
-        id="map"
-        style="width: 50%; background-color: blue"
-      ></div>
-    </div>
+      <div id="map" data-controller="map" data-map-airport-icon="<%= asset_path("airport.svg") %>" style="width: 50%; background-color: blue">
+      </div>
+      <script type="module" src="/buildless/application.js"></script>
   </body>
 </html>

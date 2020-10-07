@@ -8,4 +8,14 @@ class Airport < ApplicationRecord
       .where("#{query} < #{meters}")
       .order(distance: :asc)
   end
+
+  def as_js_object
+    {
+      "ident" => ident,
+      "name" => name,
+      "size" => size,
+      "lat" => position.latitude,
+      "lng" => position.longitude,
+    }
+  end
 end

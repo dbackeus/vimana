@@ -1,6 +1,4 @@
-import { Controller } from "stimulus"
-
-let planeSVG = `
+const planeSVG = `
   <svg transform="rotate({{ rotation }})" width="128" height="128" style="enable-background:new 0 0 128 128;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <path d="M33.41,35.09L33.41,35.09c-1.37-1.37-1.37-3.58,0-4.95l6.36-6.36c1.37-1.37,3.58-1.37,4.95,0l0,0 c1.37,1.37,1.37,3.58,0,4.95l-6.36,6.36C36.99,36.46,34.78,36.46,33.41,35.09z" style="fill:#78A3AD;"/>
     <path d="M52.66,35.09L52.66,35.09c-1.37-1.37-1.37-3.58,0-4.95l6.36-6.36c1.37-1.37,3.58-1.37,4.95,0l0,0 c1.37,1.37,1.37,3.58,0,4.95l-6.36,6.36C56.24,36.46,54.03,36.46,52.66,35.09z" style="fill:#78A3AD;"/>
@@ -17,29 +15,17 @@ let planeSVG = `
   </svg>
 `
 
-// Calculate distance between two points (ie. { lat, lng }) in nautical miles
-function distance(pos1, pos2) {
-  let radlat1 = Math.PI * pos1.lat / 180
-  let radlat2 = Math.PI * pos2.lat / 180
-  let theta = pos1.lng - pos2.lng
-  let radtheta = Math.PI * theta / 180
+const planeIconDataUrl = heading => (
+  "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(planeSVG.replace("{{ rotation }}", heading - 45))
+)
 
-  let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
-  dist = Math.min(dist, 1)
-  dist = Math.acos(dist)
-  dist = dist * 180/Math.PI
-  dist = dist * 60
+let airportMarkers = []
 
-  return dist
-}
+class Map {
+  constructor() {
+    let position =  { lat: currentAirport.lat, lng: currentAirport.lng }
 
-let markers = []
-
-export default class extends Controller {
-  connect() {
-    let position =  { lat: Number(this.data.get("current-lat")), lng: Number(this.data.get("current-lng")) }
-
-    window.map = new google.maps.Map(this.element, {
+    this.map = window.map = new google.maps.Map(document.getElementById("map"), {
       center: position,
       zoom: 8,
       disableDefaultUI: true,
@@ -47,34 +33,34 @@ export default class extends Controller {
 
     map.addListener("zoom_changed", this.onZoom())
 
-    let size = this.baseSize
-    airports.forEach((airport) => {
-      if(distance(airport, position) > 50 || airport.size < 2) return
-
-      let marker = new google.maps.Marker({
-        position: airport,
-        icon: { url: this.data.get("airport-icon"), scaledSize: new google.maps.Size(size, size) },
-        map: map,
-      })
-
-      markers.push(marker)
-    })
-
-    let playerIcon = {
-      url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(planeSVG.replace("{{ rotation }}", 315)),
+    const playerIcon = {
+      url: planeIconDataUrl(360),
       scaledSize: new google.maps.Size(50, 50),
     }
 
-    window.playerMarker = new google.maps.Marker({ map: map, position: position, icon: playerIcon })
+    this.playerMarker = window.playerMarker = new google.maps.Marker({ map: map, position: position, icon: playerIcon })
+  }
 
-    playerMarker.update = function({ lat, lng, heading }) {
-      this.setIcon({
-        ...playerIcon,
-        url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(planeSVG.replace("{{ rotation }}", heading - 45)),
+  updatePlayer({ lat, lng, heading }) {
+    let marker = this.playerMarker
+    marker.setIcon({ ...marker.getIcon(), url: planeIconDataUrl(heading) })
+    marker.setPosition({ lat, lng })
+  }
+
+  updateAirports(airports) {
+    airportMarkers.forEach(marker => marker.setMap(null))
+    airportMarkers = []
+
+    let size = this.baseSize
+    airports.forEach((airport) => {
+      let marker = new google.maps.Marker({
+        position: airport,
+        icon: { url: "/assets/airport.svg", scaledSize: new google.maps.Size(size, size) },
+        map: this.map,
       })
-      this.setPosition({ lat, lng })
-    }
-    markers.push(playerMarker)
+
+      airportMarkers.push(marker)
+    })
   }
 
   get baseSize() {
@@ -88,3 +74,7 @@ export default class extends Controller {
     // })
   }
 }
+
+const singleton = new Map()
+
+export default singleton

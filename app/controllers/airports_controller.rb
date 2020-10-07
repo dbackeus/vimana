@@ -1,14 +1,6 @@
 class AirportsController < ActionController::API
   def self.airports_json
-    @airports_json ||= Oj.dump(Airport.select(:ident, :name, :size, :position).all.map do |airport|
-      {
-        "ident" => airport.ident,
-        "name" => airport.name,
-        "size" => airport.size,
-        "lat" => airport.position.latitude,
-        "lng" => airport.position.longitude,
-      }
-    end)
+    @airports_json ||= Oj.dump(Airport.select(:ident, :name, :size, :position).all.map(&:as_js_object))
   end
 
   def index
