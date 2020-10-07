@@ -7,6 +7,7 @@ gem "bootsnap", require: false
 gem "devise"
 gem "jbuilder"
 gem "omniauth-google-oauth2"
+gem "oj"
 gem "pg"
 gem "puma"
 gem "rails"

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resource :session
   resources :games
+  resources :airports, only: :index
 
   root to: "sessions#new"
 end
