@@ -1,24 +1,31 @@
-# README
+# Vimana
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Todo
 
-Things you may want to cover:
+### Windows Client App -> Rails
 
-* Ruby version
+- Use WebSocket.Client nuget package with built in reconnect?
+- Send SimConnect variables from client to server via ActionCable
+- Broadcast game state to browser client via ActionCable and update map
 
-* System dependencies
+### Missions
 
-* Configuration
+- Better step by step approach (including take off and engine shut-down)
+- Update new current airport after mission complete
 
-* Database creation
+### Aircraft
 
-* Database initialization
+- Select aircrafts
 
-* How to run the test suite
+### Resources
 
-* Services (job queues, cache servers, search engines, etc.)
+Icons:
+https://www.flaticon.com/
 
-* Deployment instructions
+Parsing MSFS BGL (airport) files:
+https://www.fsdeveloper.com/wiki/index.php?title=BGL_File_Format
 
-* ...
+Google Maps:
+
+Markers - https://developers.google.com/maps/documentation/javascript/reference/marker
+Map - https://developers.google.com/maps/documentation/javascript/events
