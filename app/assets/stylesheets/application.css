@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+.game-row:hover {
+  background-color: lightgreen;
+}

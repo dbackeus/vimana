@@ -18,11 +18,13 @@
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV.fetch("GOOGLE_MAPS_API_KEY") %>&libraries=&v=weekly"></script>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <script>
-      currentAirport = <%=raw @game.current_airport.as_js_object.to_json %>
+      currentAirport = <%=raw @game.current_airport.to_json %>
+      currentMission = <%=raw @game.current_mission.to_json %>
     </script>
   </head>
   <body style="height: 100vh; width: 100vw;">

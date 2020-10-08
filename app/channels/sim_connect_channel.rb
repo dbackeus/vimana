@@ -20,13 +20,18 @@ class SimConnectChannel < ApplicationCable::Channel
   end
 
   def set_variables(data)
-    variables = data.fetch("variables")
-    payload = {
-      lat: variables.fetch("PLANE LATITUDE"),
-      lng: variables.fetch("PLANE LONGITUDE"),
-      heading: variables.fetch("PLANE HEADING DEGREES TRUE"),
-    }
+    simvars = data.fetch("variables")
+    game.tick(current_user, simvars)
+    current_mission.tick(current_user, simvars)
+  end
 
-    GamesChannel.broadcast_to(current_user, payload)
+  private
+
+  def game
+    @game ||= current_user.game
+  end
+
+  def current_mission
+    @current_mission ||= game.current_mission
   end
 end

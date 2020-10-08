@@ -3,3 +3,7 @@
 
 const channels = require.context('.', true, /_channel\.js$/)
 channels.keys().forEach(channels)
+
+// Hack to allow build-less files to use consumer
+import consumer from "./consumer"
+window.actionCableConsumer = consumer

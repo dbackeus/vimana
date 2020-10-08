@@ -9,7 +9,7 @@ class Airport < ApplicationRecord
       .order(distance: :asc)
   end
 
-  def as_js_object
+  def serializable_hash(*args)
     {
       "ident" => ident,
       "name" => name,

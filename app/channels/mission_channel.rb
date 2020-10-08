@@ -1,4 +1,4 @@
-class GamesChannel < ApplicationCable::Channel
+class MissionChannel < ApplicationCable::Channel
   def subscribed
     stream_for current_user
   end

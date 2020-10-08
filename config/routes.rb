@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resource :session
   resources :games
   resources :airports, only: :index
+  resources :missions, only: :create
 
   root to: "sessions#new"
 end

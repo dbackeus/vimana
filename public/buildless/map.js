@@ -15,56 +15,82 @@ const planeSVG = `
   </svg>
 `
 
-const planeIconDataUrl = heading => (
-  "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(planeSVG.replace("{{ rotation }}", heading - 45))
-)
+const planeIconDataUrl = (heading) =>
+  'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(planeSVG.replace('{{ rotation }}', heading - 45))
 
 let airportMarkers = []
+let flightPaths = []
+
+const clearMarkersAndPaths = () => {
+  airportMarkers.forEach((marker) => marker.setMap(null))
+  airportMarkers = []
+  flightPaths.forEach((path) => path.setMap(null))
+  flightPaths = []
+}
 
 class Map {
   constructor() {
-    let position =  { lat: currentAirport.lat, lng: currentAirport.lng }
+    let position = { lat: currentAirport.lat, lng: currentAirport.lng }
 
-    this.map = window.map = new google.maps.Map(document.getElementById("map"), {
+    this.map = new google.maps.Map(document.getElementById('map'), {
       center: position,
       zoom: 8,
       disableDefaultUI: true,
     })
 
-    map.addListener("zoom_changed", this.onZoom())
+    this.map.addListener('zoom_changed', this.onZoom())
 
     const playerIcon = {
       url: planeIconDataUrl(360),
       scaledSize: new google.maps.Size(50, 50),
     }
 
-    this.playerMarker = window.playerMarker = new google.maps.Marker({ map: map, position: position, icon: playerIcon })
+    this.playerMarker = new google.maps.Marker({ map: this.map, position: position, icon: playerIcon })
   }
 
-  updatePlayer({ lat, lng, heading }) {
+  updatePlayer(positionAndHeading) {
     let marker = this.playerMarker
-    marker.setIcon({ ...marker.getIcon(), url: planeIconDataUrl(heading) })
-    marker.setPosition({ lat, lng })
+    marker.setIcon({ ...marker.getIcon(), url: planeIconDataUrl(positionAndHeading.heading) })
+    marker.setPosition(positionAndHeading)
+    this.map.setCenter(positionAndHeading)
+  }
+
+  previewRoute(airport) {
+    clearMarkersAndPaths()
+
+    this.addAirport(airport)
+
+    const flightPath = new google.maps.Polyline({
+      path: [currentAirport, airport],
+      geodesic: true,
+    })
+    flightPath.setMap(this.map)
+
+    flightPaths.push(flightPath)
   }
 
   updateAirports(airports) {
-    airportMarkers.forEach(marker => marker.setMap(null))
-    airportMarkers = []
+    clearMarkersAndPaths()
 
-    let size = this.baseSize
     airports.forEach((airport) => {
-      let marker = new google.maps.Marker({
-        position: airport,
-        icon: { url: "/assets/airport.svg", scaledSize: new google.maps.Size(size, size) },
-        map: this.map,
-      })
-
-      airportMarkers.push(marker)
+      this.addAirport(airport)
     })
   }
 
+  addAirport(airport) {
+    let size = this.baseSize
+
+    let marker = new google.maps.Marker({
+      position: airport,
+      icon: { url: '/assets/airport.svg', scaledSize: new google.maps.Size(size, size) },
+      map: this.map,
+    })
+
+    airportMarkers.push(marker)
+  }
+
   get baseSize() {
-    return map.getZoom() * 5
+    return this.map.getZoom() * 5
   }
 
   onZoom() {
@@ -75,6 +101,6 @@ class Map {
   }
 }
 
-const singleton = new Map()
+window.map = new Map()
 
-export default singleton
+export default map

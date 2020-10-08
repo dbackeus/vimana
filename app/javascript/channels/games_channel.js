@@ -11,7 +11,6 @@ consumer.subscriptions.create("GamesChannel", {
 
   received(data) {
     console.log("GamesChannel.received", data)
-    playerMarker.update(data)
-    map.setCenter(data)
+    if(map.updatePlayer) map.updatePlayer(data)
   }
 })
