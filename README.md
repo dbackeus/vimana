@@ -6,6 +6,8 @@ Provided you're running MacOS and use `rbenv` to manage ruby, `brew` to manage a
 
 If not then look at `bin/setup` and translate whatever happens there to your own environment.
 
+Since puma-dev might be tricky to reach across devices on your local network you might want to start a server using `rails server -b 0.0.0.0` when you need to establish a connection between the simulator client and ActionCable.
+
 ## Todo
 
 - Sign out
