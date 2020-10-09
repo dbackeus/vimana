@@ -1,8 +1,8 @@
-import { h, Component } from 'preact'
+import { h, Fragment, Component } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 
-import { distance } from '../../helpers.js'
+import { distance, bearing } from '../../helpers.js'
 
 class FilterDestination extends Component {
   state = {
@@ -14,7 +14,7 @@ class FilterDestination extends Component {
 
     const filteredAirports = airports
       .filter((airport) => airport.size > 1)
-      .map((airport) => ({ ...airport, distance: distance(airport, currentAirport) }))
+      .map((airport) => ({ ...airport, distance: distance(currentAirport, airport), heading: bearing(currentAirport, airport) }))
       .filter((airport) => airport.distance > distanceStart && airport.distance < distanceEnd)
       .sort((a, b) => (a.distance > b.distance ? 1 : -1))
 
@@ -28,7 +28,9 @@ class FilterDestination extends Component {
           onMouseOver=${this.onAirportHover.bind(this, airport)}
         >
           <td>${airport.name}</td>
+          <td>${["Tiny", "Small", "Large"][airport.size - 1]}</td>
           <td>${Math.round(airport.distance)} NM</td>
+          <td>${Math.round(airport.heading)}°</td>
         </tr>
       `
     })
@@ -45,9 +47,11 @@ class FilterDestination extends Component {
         <table class="table">
           <thead>
             <th>Name</th>
+            <th>Size</th>
             <th>Distance</th>
+            <th>Heading</th>
           </thead>
-          <tbody>
+          <tbody onMouseOut=${() => map.updateAirports(filteredAirports)}>
             ${rows}
           </tbody>
         </table>

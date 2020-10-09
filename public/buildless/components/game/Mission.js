@@ -10,7 +10,7 @@ class Mission extends Component {
   }
 
   componentWillMount() {
-    map.previewRoute(this.props.mission.destination_airport)
+    map.updateAirports([this.props.mission.destination_airport])
     const setMission = (mission) => this.setState({ mission })
 
     this.channel = window.actionCableConsumer.subscriptions.create('MissionChannel', { received: setMission })
@@ -18,10 +18,18 @@ class Mission extends Component {
 
   render() {
     const { mission } = this.state
+    const maybeSuccess = mission.completed_at && html`
+      <div class="alert alert-info">
+        <h4 class="alert-heading">Mission success! 🥳</h4>
+        <p>Reward...</p>
+        <button class="btn btn-primary" onClick=${window.location.reload}>Back to mission select</button>
+      </div>
+    `
 
     return html`
       <${Fragment}>
         <h2>${mission.description} Mission</h2>
+        ${maybeSuccess}
         <p>From ${mission.starting_airport.name} to ${mission.destination_airport.name}.</p>
         ${this.renderMissionState(mission)}
       </${Fragment}>
