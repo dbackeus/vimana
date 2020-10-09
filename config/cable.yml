@@ -1,5 +1,6 @@
 development:
   adapter: redis
+  channel_prefix: vimana_development
 
 test:
   adapter: test
