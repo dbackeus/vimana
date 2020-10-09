@@ -1,6 +1,8 @@
 class Step < ApplicationRecord
   belongs_to :mission
 
+  default_scope -> { order(:position) }
+
   def check_if_complete(simvars)
     check_type = check.fetch('type')
     Rails.logger.debug("Checking Step[#{id}] with type '#{check_type}' for completeness")
