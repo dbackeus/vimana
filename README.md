@@ -15,6 +15,7 @@ Since puma-dev might be tricky to reach across devices on your local network you
 ### Missions
 
 - Clickable airport markers
+- Better filtering on the destination selector
 - Abort mission
 - Back function
 - Give actual rewards
