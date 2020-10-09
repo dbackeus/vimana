@@ -1,72 +1,29 @@
+<div class="container" style="height: 60vh;">
+  <%= render AlertComponent.new(type: "success", content: notice) if notice %>
+  <%= render AlertComponent.new(type: "danger", content: alert) if alert %>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Vimana</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <style type="text/css">
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        background: #050515;
-      }
-
-      .el {
-        width: 100vw;
-        height: 100vh;
-        padding: 1rem;
-
-        z-index: -1;
-        position: absolute;
-        top: 0;
-
-        background-image: url('<%= asset_path("horizon1.jpg") %>');
-        background-size: 100% auto;
-        background-position: center bottom;
-        background-repeat: no-repeat;
-
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black, black);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container" style="height: 100vh;">
-      <div class="row h-100 justify-content-md-center">
-        <div class="col-sm-6 my-auto">
-          <%= form_for @game do |f| %>
-            <div class="card">
-              <div class="card-body">
-                <!-- <h5 class="card-title">New Game</h5> -->
-                <h5>Select a starting airport</h5>
-                <p class="card-text">
+  <div class="row h-100 justify-content-md-center">
+    <div class="col-sm-6 my-auto">
+      <%= form_for @game do |f| %>
+        <div class="card">
+          <div class="card-body">
+            <!-- <h5 class="card-title">New Game</h5> -->
+            <h5>Select a starting airport</h5>
+            <p class="card-text">
 <!--                   <label for="game-name" class="form-label">Name your game</label>
-                  <input name="game[name]" class="form-control" id="game-name"> -->
-                  <input type="hidden" name="game[name]" value="<%= "Game-#{SecureRandom.hex}" %>">
-                  <!-- <label for="game-starting-airport" class="form-label">Select a starting airport</label> -->
-                  <input name="game[starting_airport]" class="form-control" list="datalistOptions" id="game-starting-airport" placeholder="Type to search...">
-                  <datalist id="datalistOptions">
-                    <%=raw Airport.select(:name, :ident).all.map { |a| %(<option value="#{a.name}">#{a.ident}</option>) }.join("\n") %>
-                  </datalist>
-                </p>
-                <%= f.submit "Continue", class: "btn btn-primary float-right" %>
-              </div>
-            </div>
-          <% end %>
+              <input name="game[name]" class="form-control" id="game-name"> -->
+              <input type="hidden" name="game[name]" value="<%= "Game-#{SecureRandom.hex}" %>">
+              <!-- <label for="game-starting-airport" class="form-label">Select a starting airport</label> -->
+              <input name="game[starting_airport]" class="form-control" list="datalistOptions" id="game-starting-airport" placeholder="Type to search...">
+              <datalist id="datalistOptions">
+                <%=raw Airport.select(:name, :ident).all.map { |a| %(<option value="#{a.name}">#{a.ident}</option>) }.join("\n") %>
+              </datalist>
+            </p>
+            <%= f.submit "Continue", class: "btn btn-primary float-right" %>
+          </div>
         </div>
-
-      </div>
+      <% end %>
     </div>
-    <div class="el"></div>
-  </body>
-</html>
+  </div>
+</div>
+<div class="horizon"></div>

@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import { h, Fragment, Component } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 

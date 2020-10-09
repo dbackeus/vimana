@@ -17,10 +17,13 @@
         }
       }
     </script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV.fetch("GOOGLE_MAPS_API_KEY") %>&libraries=&v=weekly"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <script>
       currentAirport = <%=raw @game.current_airport.to_json %>
@@ -29,10 +32,11 @@
   </head>
   <body style="height: 100vh; width: 100vw;">
     <div class="game" style="display: flex; height: 100%; width: 100vw;">
-      <div class="info" id="game-info" style="width: 50%;">
+      <div class="info" id="game-info" style="width: 50%; overflow: scroll;">
       </div>
       <div id="map" data-controller="map" data-map-airport-icon="<%= asset_path("airport.svg") %>" style="width: 50%; background-color: blue">
       </div>
-      <script type="module" src="/buildless/application.js"></script>
+    </div>
+    <script type="module" src="/buildless/application.js"></script>
   </body>
 </html>

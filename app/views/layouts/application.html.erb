@@ -2,28 +2,40 @@
 <html>
   <head>
     <title>Vimana</title>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style type="text/css">
+      body {
+        background: #050515;
+      }
+
+      .horizon {
+        width: 100vw;
+        height: 100vh;
+        padding: 1rem;
+
+        z-index: -1;
+        position: absolute;
+        top: 0;
+
+        background-image: url('<%= asset_path("horizon1.jpg") %>');
+        background-size: 100% auto;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black, black);
+      }
+    </style>
   </head>
   <body>
-    <div class="container">
-      <%= render AlertComponent.new(type: "success", content: notice) if notice %>
-      <%= render AlertComponent.new(type: "danger", content: alert) if alert %>
-      <% if user_signed_in? %>
-        <p>
-          Signed in as <%= current_user.email %> |
-          <%= link_to "Sign out", session_path, method: :delete %>
-        </p>
-      <% end %>
-      <%= yield %>
-    </div>
+    <%= yield %>
   </body>
 </html>

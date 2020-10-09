@@ -38,7 +38,7 @@ class Map {
       disableDefaultUI: true,
     })
 
-    this.map.addListener('zoom_changed', this.onZoom())
+    this.map.addListener('zoom_changed', this.onZoom.bind(this))
 
     const playerIcon = {
       url: planeIconDataUrl(360),
@@ -53,6 +53,16 @@ class Map {
     marker.setIcon({ ...marker.getIcon(), url: planeIconDataUrl(positionAndHeading.heading) })
     marker.setPosition(positionAndHeading)
     this.map.setCenter(positionAndHeading)
+  }
+
+  zoomIncludingDistance(distance) {
+    let zoom;
+    if (distance <= 50) zoom = 8
+    else if (distance <= 100) zoom = 7.4
+    else if (distance <= 250) zoom = 6
+    else if (distance <= 500) zoom = 5
+
+    this.map.setZoom(zoom)
   }
 
   previewRoute(airport) {

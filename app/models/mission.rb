@@ -5,7 +5,7 @@ class Mission < ApplicationRecord
 
   before_validation :generate_steps, on: :create
 
-  has_many :steps, -> { order(:position) }, dependent: :delete_all
+  has_many :steps, dependent: :delete_all
 
   def serializable_hash(*args)
     super(include: %i[starting_airport destination_airport steps])
@@ -31,22 +31,22 @@ class Mission < ApplicationRecord
   def generate_steps
     return if steps.any? # likely already generated steps
 
-    self.steps << Step.new(
+    self.steps.build(
       position: steps.length,
       description: "Connect simulator client and start at #{starting_airport.name} airport",
       check: { type: "touchdown", polygon: starting_airport.area.as_json },
     )
-    self.steps << Step.new(
+    self.steps.build(
       position: steps.length,
       description: "Lift off from #{starting_airport.name} airport",
       check: { type: "airborne" },
     )
-    self.steps << Step.new(
+    self.steps.build(
       position: steps.length,
       description: "Land at #{destination_airport.name} airport",
       check: { type: "touchdown", polygon: destination_airport.area.as_json }
     )
-    self.steps << Step.new(
+    self.steps.build(
       position: steps.length,
       description: 'Park airplane',
       check: { type: "parked" }

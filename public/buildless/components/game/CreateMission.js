@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import { h, Fragment, Component } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 
@@ -39,7 +39,7 @@ class CreateMission extends Component {
       body: JSON.stringify({ mission: { destination_airport_ident: ident, description } }),
     })
       .then((response) => response.json())
-      .then((mission) => this.setState({ createdMission: mission }))
+      .then((mission) => { this.setState({ createdMission: mission }) })
       .catch((error) => this.setState({ error }))
   }
 }

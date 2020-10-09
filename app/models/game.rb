@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
   belongs_to :current_airport, class_name: "Airport"
-  has_many :missions
+  has_many :missions, dependent: :destroy
 
   validates_presence_of :current_airport
 

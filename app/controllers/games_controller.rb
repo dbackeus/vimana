@@ -7,7 +7,6 @@ class GamesController < ApplicationController
 
   def new
     @game = current_user.build_game
-    render layout: false
   end
 
   def create
@@ -18,7 +17,7 @@ class GamesController < ApplicationController
     if @game.save
       redirect_to @game
     else
-      render "new", layout: false
+      render "new"
     end
   end
 
