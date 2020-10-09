@@ -92,7 +92,7 @@ class Map {
 
     let marker = new google.maps.Marker({
       position: airport,
-      icon: { url: '/assets/airport.svg', scaledSize: new google.maps.Size(size, size) },
+      icon: { url: window.airportIconPath, scaledSize: new google.maps.Size(size, size) },
       map: this.map,
     })
 
