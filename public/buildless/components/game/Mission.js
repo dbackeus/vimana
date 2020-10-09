@@ -22,7 +22,7 @@ class Mission extends Component {
       <div class="alert alert-info">
         <h4 class="alert-heading">Mission success! 🥳</h4>
         <p>Reward...</p>
-        <button class="btn btn-primary" onClick=${window.location.reload}>Back to mission select</button>
+        <button class="btn btn-primary" onClick=${e => window.location.reload()}>Back to mission select</button>
       </div>
     `
 
