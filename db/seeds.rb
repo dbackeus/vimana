@@ -27,4 +27,8 @@ CSV.foreach(File.open("db/airports.csv")) do |row|
     area: "POLYGON ((#{left} #{top}, #{right} #{top}, #{right} #{bottom}, #{left} #{bottom}, #{left} #{top}))",
     position: "POINT (#{longitude} #{latitude})",
   )
+rescue => e
+  # On Heroku's Postgis about 30 airports had some kind of validation error on the area polygon
+  puts "POLYGON ((#{left} #{top}, #{right} #{top}, #{right} #{bottom}, #{left} #{bottom}, #{left} #{top}))"
+  puts e.message
 end
