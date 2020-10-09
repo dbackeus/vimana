@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_07_193657) do
+ActiveRecord::Schema.define(version: 2020_10_09_075600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 2020_10_07_193657) do
     t.index ["game_id"], name: "index_missions_on_game_id"
   end
 
+  create_table "steps", force: :cascade do |t|
+    t.bigint "mission_id", null: false
+    t.datetime "completed_at"
+    t.integer "position", limit: 2, null: false
+    t.text "description", null: false
+    t.jsonb "check", null: false
+    t.index ["mission_id", "position"], name: "index_steps_on_mission_id_and_position", unique: true
+    t.index ["mission_id"], name: "index_steps_on_mission_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -69,4 +79,5 @@ ActiveRecord::Schema.define(version: 2020_10_07_193657) do
   add_foreign_key "games", "airports", column: "current_airport_id"
   add_foreign_key "games", "users"
   add_foreign_key "missions", "games"
+  add_foreign_key "steps", "missions"
 end

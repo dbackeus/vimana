@@ -4,7 +4,6 @@
 
 ### Missions
 
-- Better step by step approach (including take off and engine shut-down)
 - Update new current airport after mission complete
 - Abort mission
 - Back function

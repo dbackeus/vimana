@@ -29,19 +29,18 @@ class Mission extends Component {
   }
 
   renderMissionState(mission) {
-    const { started_at, completed_at, starting_airport, destination_airport } = mission
+    const steps = mission.steps.map(
+      ({ position, description, completed_at }) =>
+        html`<li class="list-group-item list-group-item-${completed_at ? 'success' : 'warning'}">
+          ${position + 1}. ${description}
+        </li>`
+    )
 
-    if (!started_at) {
-      return html` <div class="alert alert-info">
-        Please connect the flight simulator client and start a flight from '${starting_airport.name}' airport to start the
-        mission.
-      </div>`
-    }
-    if (completed_at) {
-      return html` <div class="alert alert-success">You successfully completed the mission, hoorray! 🥳</div> `
-    }
-
-    return html` <p>Tracking in progress. Please land at ${destination_airport} to complete mission!</p> `
+    return html`
+      <ol class="list-group">
+        ${steps}
+      </ol>
+    `
   }
 
   componentWillUnmount() {

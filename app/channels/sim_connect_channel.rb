@@ -9,7 +9,9 @@ class SimConnectChannel < ApplicationCable::Channel
       "PLANE ALT ABOVE GROUND" => "feet",
       "PLANE PITCH DEGREES" => "degrees",
       "PLANE BANK DEGREES" => "degrees",
-      "PLANE IN PARKING STATE" => "Boolean",
+      "SIM ON GROUND" => "Boolean",
+      "GROUND VELOCITY" => "knots",
+      "BRAKE PARKING INDICATOR" => "Boolean",
       "PLANE TOUCHDOWN LATITUDE" => "degrees latitude",
       "PLANE TOUCHDOWN LONGITUDE" => "degrees longitude",
     }
