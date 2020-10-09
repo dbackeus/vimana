@@ -1,12 +1,21 @@
 # Vimana
 
+## Dev setup
+
+Provided you're running MacOS and use `rbenv` to manage ruby, `brew` to manage application installs and `puma-dev` to run your ruby web apps: Go ahead and run `bin/setup`.
+
+If not then look at `bin/setup` and translate whatever happens there to your own environment.
+
 ## Todo
+
+- Sign out
 
 ### Missions
 
-- Update new current airport after mission complete
+- Clickable airport markers
 - Abort mission
 - Back function
+- Give actual rewards
 
 ### Aircraft
 
