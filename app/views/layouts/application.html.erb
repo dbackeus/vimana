@@ -8,10 +8,22 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script type="importmap">
+      {
+        "imports": {
+          "preact": "https://cdn.skypack.dev/preact",
+          "htm": "https://cdn.skypack.dev/htm",
+          "turbolinks": "https://cdn.skypack.dev/turbolinks@^5.2.0"
+        }
+      }
+    </script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script type="module" src="/buildless/application.js"></script>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
     <style type="text/css">
       body {
         background: #050515;

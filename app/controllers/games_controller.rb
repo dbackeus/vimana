@@ -23,7 +23,5 @@ class GamesController < ApplicationController
 
   def show
     @game = current_user.game
-    @nearby_airports = Airport.within(@game.current_airport.position, 50).where(size: 2..) - [@game.current_airport]
-    render layout: false
   end
 end
