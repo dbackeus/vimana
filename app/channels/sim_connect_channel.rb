@@ -25,6 +25,7 @@ class SimConnectChannel < ApplicationCable::Channel
     simvars = data.fetch("variables")
     game.tick(current_user, simvars)
     current_mission.tick(current_user, simvars)
+    @current_mission = nil if current_mission.completed_at
   end
 
   private
