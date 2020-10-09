@@ -12,10 +12,8 @@ gem "pg"
 gem "puma"
 gem "rails"
 gem "redis" # for actioncable
-gem "sass-rails"
 gem "turbolinks"
 gem "view_component"
-gem "webpacker"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

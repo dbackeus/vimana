@@ -11,6 +11,8 @@
     <script type="importmap">
       {
         "imports": {
+          "@rails/actioncable": "https://cdn.skypack.dev/@rails/actioncable@^6.0.3-1",
+          "@rails/ujs": "https://cdn.skypack.dev/@rails/ujs@^6.0.3",
           "preact": "https://cdn.skypack.dev/preact",
           "htm": "https://cdn.skypack.dev/htm",
           "turbolinks": "https://cdn.skypack.dev/turbolinks@^5.2.0"
@@ -19,10 +21,7 @@
     </script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <script type="module" src="/buildless/application.js"></script>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <style type="text/css">
       body {
@@ -38,7 +37,7 @@
         position: absolute;
         top: 0;
 
-        background-image: url('<%= asset_path("horizon1.jpg") %>');
+        background-image: url('/buildless/images/horizon1.jpg');
         background-size: 100% auto;
         background-position: center bottom;
         background-repeat: no-repeat;

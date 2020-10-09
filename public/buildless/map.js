@@ -1,3 +1,5 @@
+import gamesChannel from './channels/gamesChannel.js'
+
 const planeSVG = `
   <svg transform="rotate({{ rotation }})" width="128" height="128" style="enable-background:new 0 0 128 128;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <path d="M33.41,35.09L33.41,35.09c-1.37-1.37-1.37-3.58,0-4.95l6.36-6.36c1.37-1.37,3.58-1.37,4.95,0l0,0 c1.37,1.37,1.37,3.58,0,4.95l-6.36,6.36C36.99,36.46,34.78,36.46,33.41,35.09z" style="fill:#78A3AD;"/>
@@ -92,7 +94,7 @@ class Map {
 
     let marker = new google.maps.Marker({
       position: airport,
-      icon: { url: window.airportIconPath, scaledSize: new google.maps.Size(size, size) },
+      icon: { url: '/buildless/images/airport.svg', scaledSize: new google.maps.Size(size, size) },
       map: this.map,
     })
 

@@ -2,6 +2,7 @@ import { h, Fragment, Component } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 
+import consumer from '../../channels/consumer.js'
 import map from '../../map.js'
 
 class Mission extends Component {
@@ -13,7 +14,7 @@ class Mission extends Component {
     map.updateAirports([this.props.mission.destination_airport])
     const setMission = (mission) => this.setState({ mission })
 
-    this.channel = window.actionCableConsumer.subscriptions.create('MissionChannel', { received: setMission })
+    this.channel = consumer.subscriptions.create('MissionChannel', { received: setMission })
   }
 
   render() {

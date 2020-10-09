@@ -1,5 +1,10 @@
+<style>
+  .game-row:hover {
+    background-color: lightgreen;
+  }
+</style>
+
 <script>
-  airportIconPath = <%=raw asset_path("airport.svg").to_json %>
   currentAirport = <%=raw @game.current_airport.to_json %>
   currentMission = <%=raw @game.current_mission.to_json %>
 </script>

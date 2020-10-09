@@ -1,6 +1,6 @@
-import consumer from "./consumer"
+import consumer from "./consumer.js"
 
-consumer.subscriptions.create("GamesChannel", {
+const gamesChannel = consumer.subscriptions.create("GamesChannel", {
   connected() {
     console.log("GamesChannel.connected")
   },
@@ -11,6 +11,8 @@ consumer.subscriptions.create("GamesChannel", {
 
   received(data) {
     console.log("GamesChannel.received", data)
-    if(map.updatePlayer) map.updatePlayer(data)
+    if(window.map.updatePlayer) window.map.updatePlayer(data)
   }
 })
+
+export default gamesChannel
