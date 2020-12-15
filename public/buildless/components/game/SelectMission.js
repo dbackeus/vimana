@@ -2,7 +2,7 @@ import { h, Fragment, Component } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 
-import { distance } from '../../helpers.js'
+import { distance } from 'helpers'
 
 const SelectMission = ({ airport, onMissionClick }) => {
   const reward = Math.round(distance(airport, currentAirport) * 5)

@@ -2,11 +2,11 @@ import { h, Component } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 
-import Main from './game/Main.js'
-import FilterDestination from './game/FilterDestination.js'
-import Mission from './game/Mission.js'
-import CreateMission from './game/CreateMission.js'
-import SelectMission from './game/SelectMission.js'
+import Main from 'components/game/Main'
+import FilterDestination from 'components/game/FilterDestination'
+import Mission from 'components/game/Mission'
+import CreateMission from 'components/game/CreateMission'
+import SelectMission from 'components/game/SelectMission'
 
 class Game extends Component {
   state = {

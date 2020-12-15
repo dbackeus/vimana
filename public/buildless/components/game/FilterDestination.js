@@ -2,7 +2,7 @@ import { h, Fragment, Component } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 
-import { distance, bearing } from '../../helpers.js'
+import { distance, bearing } from 'helpers'
 
 class FilterDestination extends Component {
   state = {

@@ -1,4 +1,4 @@
-import consumer from "./consumer.js"
+import consumer from "channels/consumer"
 
 const gamesChannel = consumer.subscriptions.create("GamesChannel", {
   connected() {

@@ -2,7 +2,7 @@ import { h, Component, render } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 
-import Game from './components/game.js'
+import Game from 'components/game'
 
 class App extends Component {
   constructor() {

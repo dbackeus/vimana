@@ -2,8 +2,8 @@ import { h, Fragment, Component } from 'preact'
 import htm from 'htm'
 const html = htm.bind(h)
 
-import consumer from '../../channels/consumer.js'
-import map from '../../map.js'
+import consumer from 'channels/consumer'
+import map from 'map'
 
 class Mission extends Component {
   state = {
