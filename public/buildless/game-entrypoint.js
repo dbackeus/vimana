@@ -4,6 +4,8 @@ const html = htm.bind(h)
 
 import Game from 'components/game'
 
+console.log("LOL!")
+
 class App extends Component {
   constructor() {
     super()
