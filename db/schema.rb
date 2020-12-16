@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_075600) do
+ActiveRecord::Schema.define(version: 2020_12_16_114130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+  enable_extension "uuid-ossp"
 
   create_table "airports", force: :cascade do |t|
     t.string "ident", limit: 4, null: false
@@ -36,6 +37,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_075600) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "current_airport_id", null: false
+    t.uuid "api_key", default: -> { "uuid_generate_v4()" }, null: false
+    t.index ["api_key"], name: "index_games_on_api_key", unique: true
     t.index ["current_airport_id"], name: "index_games_on_current_airport_id"
     t.index ["slug"], name: "index_games_on_slug", unique: true
     t.index ["user_id"], name: "index_games_on_user_id"

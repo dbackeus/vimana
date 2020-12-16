@@ -14,5 +14,50 @@
   <div id="map" style="width: 50%;"></div>
 </div>
 
+<div class="modal" id="api-key-modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 class="modal-title float-start mb-2" id="exampleModalLabel">API key</h5>
+        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+        <form>
+          <div class="input-group">
+            <input type="text" class="form-control" value="<%= @game.api_key %>" id="api-key" readonly>
+            <span class="input-group-btn">
+              <button class="btn btn-primary" id="copy-button">Copy</button>
+              <script>
+                document.getElementById('copy-button').addEventListener('click', function(e) {
+                  e.preventDefault()
+
+                  const input = document.getElementById('api-key')
+                  input.select()
+                  input.setSelectionRange(0, input.value.length + 1)
+
+                  document.execCommand('copy')
+
+                  const tooltip = new bootstrap.Tooltip(e.target, { title: "Copied!", trigger: "manual", animation: true })
+                  tooltip.show()
+                  setTimeout(() => tooltip.hide(), 2000)
+                })
+              </script>
+            </span>
+          </div>
+          <div class="form-text">Copy / paste the API key into the Windows client application.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dropdown position-absolute top-0 end-0">
+  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    <%= current_user.email %>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><%= link_to "Show API key", "#api-key-modal", class: "dropdown-item", data: { "bs-toggle" => "modal", "bs-target" => "#api-key-modal" } %></li>
+    <li><%= link_to "Sign out", session_path, method: "delete", class: "dropdown-item" %></li>
+  </ul>
+</div>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV.fetch("GOOGLE_MAPS_API_KEY") %>&libraries=&v=weekly"></script>
 <%= buildless_module "game-entrypoint" %>

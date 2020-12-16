@@ -4,8 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.clear
-    cookies[:remember_user_token].clear
+    sign_out
 
     redirect_to root_path, notice: "User signed out"
   end
