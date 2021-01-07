@@ -8,7 +8,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <script type="importmap">
+    <script defer src="https://unpkg.com/es-module-shims@0.5.0/dist/es-module-shims.min.js"></script>
+    <script type="importmap-shim">
       {
         "imports": {
           "@rails/actioncable": "https://cdn.skypack.dev/pin/@rails/actioncable@v6.1.0-tUEjNm8dVh9yweQYgaLq/min/@rails/actioncable.js",

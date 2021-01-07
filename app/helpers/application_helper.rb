@@ -9,6 +9,6 @@ module ApplicationHelper
 
     raise "module '#{name}' not found" unless url
 
-    %(<script type="module" src="#{url}"></script>).html_safe
+    %(<script type="module-shim" src="#{url}"></script>).html_safe
   end
 end

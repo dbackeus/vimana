@@ -1,0 +1,5 @@
+default:
+  name: Simon Band
+  email: simon@band.com
+  provider: google_oauth2
+  uid: uid
