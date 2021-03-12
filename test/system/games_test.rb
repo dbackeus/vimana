@@ -21,5 +21,13 @@ class GamesTest < ApplicationSystemTestCase
     click_on "Continue"
 
     assert_selector "h2", text: "ESSA - Arlanda"
+
+    click_on "Look for a mission"
+
+    assert_selector "h3", text: "Select destination airport"
+
+    # click_on "Bromma"
+
+    # assert_selector "h3", text: "Select a mission"
   end
 end
